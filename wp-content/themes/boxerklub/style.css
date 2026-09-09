@@ -1,9 +1,45 @@
 /*
  Theme Name:   Boxerklub
  Theme URI:    https://github.com/hansdieterlobeck/boxerklub
- Description:  Child theme of Hello Elementor for the Boxerklub site.
+ Description:  Child theme of Hello Elementor for the Boxerklub site, built on Elementor v4.
  Author:       Boxerklub
  Template:     hello-elementor
- Version:      1.0.0
+ Version:      1.1.0
  Text Domain:  boxerklub
 */
+
+/**
+ * Design tokens.
+ *
+ * Values fall back to static defaults, but resolve to the Elementor Kit
+ * Variables of the same name (seeded by boxerklub_seed_elementor_kit_variables()
+ * in functions.php) once Elementor has compiled the Kit's global CSS.
+ */
+:root {
+	--boxerklub-color-primary: var( --e-global-color-boxerklub-primary, #d91e2b );
+	--boxerklub-color-dark: var( --e-global-color-boxerklub-dark, #111111 );
+	--boxerklub-color-light: var( --e-global-color-boxerklub-light, #f5f5f5 );
+	--boxerklub-color-accent: var( --e-global-color-boxerklub-accent, #c9a227 );
+
+	--boxerklub-font-heading: var( --e-global-typography-boxerklub-heading-font-family, 'Oswald', sans-serif );
+	--boxerklub-font-body: var( --e-global-typography-boxerklub-body-font-family, 'Roboto', sans-serif );
+}
+
+body {
+	color: var( --boxerklub-color-dark );
+	background-color: var( --boxerklub-color-light );
+	font-family: var( --boxerklub-font-body );
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var( --boxerklub-font-heading );
+}
+
+a {
+	color: var( --boxerklub-color-primary );
+}

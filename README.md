@@ -1,13 +1,39 @@
 # Boxerklub
 
-WordPress site for the Boxerklub, built around the [Elementor](https://elementor.com/) page builder.
+WordPress site for the Boxerklub, built around the [Elementor](https://elementor.com/) page builder (v4).
 
 ## Stack
 
 - WordPress core + plugins/themes managed via **Composer** ([wpackagist](https://wpackagist.org/))
-- **Elementor** plugin + **Hello Elementor** base theme
+- **Elementor v4** plugin + **Hello Elementor** base theme
 - Custom `boxerklub` child theme in `wp-content/themes/boxerklub`
 - Local dev via **Docker Compose** (WordPress + MySQL + WP-CLI)
+
+## Design system (Elementor Variables)
+
+The theme ships brand colors and typography as design tokens instead of
+hard-coded values:
+
+| Token                | Value              |
+| -------------------- | ------------------ |
+| `boxerklub-primary`  | `#D91E2B` (red)    |
+| `boxerklub-dark`     | `#111111`          |
+| `boxerklub-light`    | `#F5F5F5`          |
+| `boxerklub-accent`   | `#C9A227` (gold)   |
+| `boxerklub-heading`  | Oswald, 700        |
+| `boxerklub-body`     | Roboto, 400        |
+
+`boxerklub_seed_elementor_kit_variables()` in `functions.php` writes these
+into the active Elementor Kit the first time the theme is activated (and
+only if no custom colors/typography exist yet, so it never overwrites
+changes made in the editor). Elementor v4 automatically surfaces Kit
+colors and typography as **Variables** under *Site Settings → Variables*
+in the editor — edit them there afterwards, no code changes needed.
+
+`style.css` consumes the same tokens as CSS custom properties
+(`var(--e-global-color-boxerklub-primary, #D91E2B)`, etc.), each with a
+static fallback so the front end renders correctly even before Elementor
+has compiled the Kit's CSS.
 
 ## Local setup
 
