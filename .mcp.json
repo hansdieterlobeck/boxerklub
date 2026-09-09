@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "elementor-boxerklub-nordholz-v1-de": {
+      "type": "http",
+      "url": "https://boxerklub-nordholz-v1.de/wp-json/elementor/mcp/",
+      "headers": {
+        "Authorization": "Basic ${ELEMENTOR_MCP_AUTH_TOKEN}"
+      }
+    }
+  }
+}

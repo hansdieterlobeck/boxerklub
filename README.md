@@ -41,6 +41,23 @@ WordPress site for the Boxerklub, built around the [Elementor](https://elementor
 
 WordPress core is installed into `/wp` (composer, git-ignored); only `wp-content` is tracked in this repository, and within it only the custom `boxerklub` theme — plugins and the parent theme come from Composer, not git.
 
+## Elementor MCP server
+
+This repo declares an MCP server in [`.mcp.json`](.mcp.json) that lets Claude Code talk to the live site's Elementor endpoint (`https://boxerklub-nordholz-v1.de/wp-json/elementor/mcp/`) via HTTP Basic auth. The server definition is checked into git, but the credential is not — it's read from the `ELEMENTOR_MCP_AUTH_TOKEN` environment variable at session start.
+
+To use it locally:
+
+1. Get the Basic-auth token: base64-encode `username:application_password` (strip the spaces WordPress shows in the application password), e.g.
+   ```bash
+   echo -n 'your-wp-username:yourapplicationpassword' | base64
+   ```
+2. Export it in your shell before launching `claude` (Claude Code reads process environment variables, not `.env` files, when expanding `${...}` in `.mcp.json`):
+   ```bash
+   export ELEMENTOR_MCP_AUTH_TOKEN='<base64 value from step 1>'
+   ```
+   For persistence, add the `export` line to your shell profile (`~/.zshrc`, `~/.bashrc`, …) or load it via [direnv](https://direnv.net/) — either way, keep the actual token out of any file committed to this repo. `.env.example` documents the variable name (`ELEMENTOR_MCP_AUTH_TOKEN=`) as a placeholder only.
+3. Start `claude` from the project root; on first use it will ask you to approve the project-scoped `elementor-boxerklub-nordholz-v1-de` server.
+
 ## Directory structure
 
 ```
