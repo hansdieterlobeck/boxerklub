@@ -1,0 +1,38 @@
+{
+    "name": "hansdieterlobeck/boxerklub",
+    "description": "Boxerklub WordPress site connected to the Elementor page builder",
+    "type": "project",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "johnpbloch/wordpress-core": "^6.6",
+        "wpackagist-plugin/elementor": "^3.25",
+        "wpackagist-theme/hello-elementor": "^3.1"
+    },
+    "require-dev": {
+        "wp-cli/wp-cli-bundle": "^2.11"
+    },
+    "extra": {
+        "wordpress-install-dir": "wp",
+        "installer-paths": {
+            "wp-content/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ],
+            "wp-content/themes/{$name}/": [
+                "type:wordpress-theme"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "johnpbloch/wordpress-core-installer": true,
+            "composer/installers": true
+        }
+    }
+}

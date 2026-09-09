@@ -1,0 +1,14 @@
+/wp/
+/vendor/
+/node_modules/
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+
+# Plugins and themes are managed by Composer (see composer.json) except our own theme
+/wp-content/plugins/*
+/wp-content/themes/*
+!/wp-content/themes/boxerklub/
+
+.env
+*.log
