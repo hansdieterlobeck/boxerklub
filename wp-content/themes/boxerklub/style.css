@@ -4,12 +4,12 @@
  Description:  Child theme of Hello Elementor for the Boxerklub site, built on Elementor v4.
  Author:       Boxerklub
  Template:     hello-elementor
- Version:      1.1.0
+ Version:      1.2.0
  Text Domain:  boxerklub
 */
 
 /**
- * Design tokens.
+ * Design tokens: colors & typography.
  *
  * Values fall back to static defaults, but resolve to the Elementor Kit
  * Variables of the same name (seeded by boxerklub_seed_elementor_kit_variables()
@@ -23,6 +23,45 @@
 
 	--boxerklub-font-heading: var( --e-global-typography-boxerklub-heading-font-family, 'Oswald', sans-serif );
 	--boxerklub-font-body: var( --e-global-typography-boxerklub-body-font-family, 'Roboto', sans-serif );
+}
+
+/**
+ * Design tokens: spacing, radius & size.
+ *
+ * Theme-owned CSS custom properties (not seeded into the Elementor Kit,
+ * unlike the color/typography tokens above, since Elementor core has no
+ * built-in Kit setting for a spacing/size scale). Usable in this
+ * stylesheet and, on any Elementor widget, via its "Additional CSS
+ * Classes" field combined with the classes further below.
+ *
+ * All clamp() values scale linearly between a 375px and a 1440px
+ * viewport; recompute them if those breakpoints ever change.
+ */
+:root {
+	--boxerklub-space-3xs: clamp( 0.25rem, 0.206rem + 0.188vw, 0.375rem );  /* 4 -> 6px */
+	--boxerklub-space-2xs: clamp( 0.5rem, 0.456rem + 0.188vw, 0.625rem );   /* 8 -> 10px */
+	--boxerklub-space-xs: clamp( 0.75rem, 0.662rem + 0.376vw, 1rem );       /* 12 -> 16px */
+	--boxerklub-space-s: clamp( 1rem, 0.912rem + 0.376vw, 1.25rem );        /* 16 -> 20px */
+	--boxerklub-space-m: clamp( 1.5rem, 1.324rem + 0.751vw, 2rem );         /* 24 -> 32px */
+	--boxerklub-space-l: clamp( 2rem, 1.648rem + 1.502vw, 3rem );           /* 32 -> 48px */
+	--boxerklub-space-xl: clamp( 3rem, 2.648rem + 1.502vw, 4rem );          /* 48 -> 64px */
+	--boxerklub-space-2xl: clamp( 4rem, 3.296rem + 3.005vw, 6rem );         /* 64 -> 96px */
+	--boxerklub-space-3xl: clamp( 6rem, 5.296rem + 3.005vw, 8rem );         /* 96 -> 128px */
+
+	--boxerklub-radius-xs: 0.25rem;                                          /* 4px, static */
+	--boxerklub-radius-s: clamp( 0.375rem, 0.331rem + 0.188vw, 0.5rem );     /* 6 -> 8px */
+	--boxerklub-radius-m: clamp( 0.5rem, 0.412rem + 0.376vw, 0.75rem );      /* 8 -> 12px */
+	--boxerklub-radius-l: clamp( 0.75rem, 0.662rem + 0.376vw, 1rem );        /* 12 -> 16px */
+	--boxerklub-radius-xl: clamp( 1rem, 0.824rem + 0.751vw, 1.5rem );        /* 16 -> 24px */
+	--boxerklub-radius-full: 999px;                                          /* circle/pill, static */
+
+	--boxerklub-size-icon-s: clamp( 1rem, 0.912rem + 0.376vw, 1.25rem );     /* 16 -> 20px */
+	--boxerklub-size-icon-m: clamp( 1.5rem, 1.412rem + 0.376vw, 1.75rem );   /* 24 -> 28px */
+	--boxerklub-size-icon-l: clamp( 2rem, 1.824rem + 0.751vw, 2.5rem );      /* 32 -> 40px */
+	--boxerklub-size-avatar-s: clamp( 2.5rem, 2.324rem + 0.751vw, 3rem );    /* 40 -> 48px */
+	--boxerklub-size-avatar-m: clamp( 4rem, 3.648rem + 1.502vw, 5rem );      /* 64 -> 80px */
+	--boxerklub-size-avatar-l: clamp( 6rem, 5.296rem + 3.005vw, 8rem );      /* 96 -> 128px */
+	--boxerklub-size-container: clamp( 20rem, 90vw, 75rem );                 /* fluid content wrapper, capped at 1200px */
 }
 
 body {
@@ -42,4 +81,117 @@ h6 {
 
 a {
 	color: var( --boxerklub-color-primary );
+}
+
+/**
+ * Global classes.
+ *
+ * Reusable component styles built on the design tokens above. Add these
+ * as "Additional CSS Classes" to any Elementor widget/container to apply
+ * them, or use them directly in theme markup.
+ */
+
+/* Base card container. */
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: var( --boxerklub-space-s );
+	padding: var( --boxerklub-space-m );
+	background-color: #ffffff;
+	border: 1px solid rgba( 17, 17, 17, 0.08 );
+	border-radius: var( --boxerklub-radius-l );
+	box-shadow: 0 2px 8px rgba( 17, 17, 17, 0.08 );
+}
+
+/* Applied to the image/video element inside a .card so it bleeds to the card's edges. */
+.card-media {
+	width: calc( 100% + var( --boxerklub-space-m ) * 2 );
+	margin: calc( var( --boxerklub-space-m ) * -1 ) calc( var( --boxerklub-space-m ) * -1 ) 0;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: var( --boxerklub-radius-l ) var( --boxerklub-radius-l ) 0 0;
+}
+
+/* Combine with .card on the same container to tighten spacing. */
+.card-compact {
+	padding: var( --boxerklub-space-s );
+	gap: var( --boxerklub-space-2xs );
+	border-radius: var( --boxerklub-radius-m );
+}
+
+/* Applied to a portrait image inside a .card (e.g. trainer/boxer profile). */
+.card-person {
+	width: var( --boxerklub-size-avatar-m );
+	height: var( --boxerklub-size-avatar-m );
+	object-fit: cover;
+	border-radius: var( --boxerklub-radius-full );
+	margin-inline: auto;
+	border: 2px solid var( --boxerklub-color-light );
+}
+
+.button-secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var( --boxerklub-space-2xs );
+	padding: var( --boxerklub-space-xs ) var( --boxerklub-space-m );
+	background-color: transparent;
+	color: var( --boxerklub-color-primary );
+	border: 2px solid var( --boxerklub-color-primary );
+	border-radius: var( --boxerklub-radius-m );
+	font-family: var( --boxerklub-font-heading );
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.button-secondary:hover {
+	background-color: var( --boxerklub-color-primary );
+	color: #ffffff;
+}
+
+/* Input, textarea & select fields. */
+.form-field {
+	width: 100%;
+	padding: var( --boxerklub-space-xs ) var( --boxerklub-space-s );
+	background-color: #ffffff;
+	color: var( --boxerklub-color-dark );
+	font-family: var( --boxerklub-font-body );
+	font-size: 1rem;
+	border: 1px solid rgba( 17, 17, 17, 0.16 );
+	border-radius: var( --boxerklub-radius-s );
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field:focus {
+	border-color: var( --boxerklub-color-primary );
+	box-shadow: 0 0 0 3px rgba( 217, 30, 43, 0.15 );
+	outline: none;
+}
+
+/* Primary navigation menu items. */
+.nav-link {
+	display: inline-flex;
+	align-items: center;
+	padding: var( --boxerklub-space-2xs ) var( --boxerklub-space-xs );
+	color: var( --boxerklub-color-dark );
+	font-family: var( --boxerklub-font-heading );
+	font-weight: 700;
+	font-size: 0.9375rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: var( --boxerklub-radius-s );
+	transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-link:hover {
+	color: var( --boxerklub-color-primary );
+	background-color: rgba( 217, 30, 43, 0.08 );
+}
+
+/* Combine with .nav-link to mark the current page. */
+.nav-link-active {
+	color: var( --boxerklub-color-primary );
+	background-color: rgba( 217, 30, 43, 0.08 );
 }
