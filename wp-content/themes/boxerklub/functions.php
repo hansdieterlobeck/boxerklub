@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BOXERKLUB_VERSION', '1.2.0' );
+define( 'BOXERKLUB_VERSION', '1.1.0' );
 
 /**
  * Enqueue parent (Hello Elementor) and child stylesheets.
